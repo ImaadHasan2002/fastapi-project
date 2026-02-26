@@ -5,6 +5,10 @@ build/
 dist/
 wheels/
 *.egg-info
-
+/.ipynb_checkpoints/
+.env
 # Virtual environments
 .venv
+.cursor/
+.vscode/
+debug-*.log

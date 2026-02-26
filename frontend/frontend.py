@@ -1,17 +1,14 @@
-import os
-from pathlib import Path
-
 import requests
 import streamlit as st
-from dotenv import load_dotenv
-
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
-load_dotenv(PROJECT_ROOT / '.env')
-
-API_URL = os.getenv('API_URL', 'http://127.0.0.1:8000/predict')
-
+import os
 st.title('Insurance Premium Category Predictor')
 st.markdown('Enter your details below:')
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
+API_URL = os.getenv('API_URL')
 
 age = st.number_input('Age', min_value=1, max_value=119, value=30)
 weight = st.number_input('Weight (kg)', min_value=1.0, max_value=199.0, value=65.0)

@@ -1,0 +1,1 @@
+OCCUPATIONS = ['student', 'private_job', 'government_job', 'business_owner', 'unemployed', 'freelancer', 'retired']

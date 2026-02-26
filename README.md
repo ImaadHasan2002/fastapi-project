@@ -7,16 +7,26 @@ A FastAPI backend + Streamlit frontend that predicts insurance premium categorie
 ```
 fastapi-project/
 ├── backend/
-│   └── backend.py          # FastAPI app with /predict endpoint
+│   └── backend.py            # FastAPI app with routes
 ├── frontend/
-│   └── frontend.py         # Streamlit UI
-├── basics/
-│   └── basics.py           # FastAPI learning examples
+│   └── frontend.py           # Streamlit UI
+├── ml/
+│   ├── __init__.py
+│   └── predictor.py          # Model loading and prediction logic
+├── schema/
+│   ├── __init__.py
+│   ├── user_input.py         # Request validation (Pydantic)
+│   └── pred_response.py      # Response schema (Pydantic)
+├── config/
+│   ├── city_tier.py          # City tier classification lists
+│   └── occupations.py        # Valid occupation values
 ├── models/
-│   └── model.pkl           # Trained sklearn pipeline
-├── fastapi_ml_model.ipynb  # Notebook used to train the model
-├── dummy_insurance.csv     # Sample dataset
-├── .env                    # Environment variables (MODEL_PATH, API_URL)
+│   └── model.pkl             # Trained sklearn pipeline
+├── basics/
+│   └── basics.py             # FastAPI learning examples
+├── fastapi_ml_model.ipynb    # Notebook used to train the model
+├── dummy_insurance.csv       # Sample dataset
+├── .env                      # Environment variables (MODEL_PATH, API_URL)
 ├── requirements.txt
 └── pyproject.toml
 ```
@@ -72,12 +82,30 @@ Interactive docs are at `http://127.0.0.1:8000/docs`.
 ### Start the frontend (separate terminal)
 
 ```bash
-streamlit run frontend/frontend.py
+cd frontend
+streamlit run frontend.py
 ```
 
 Opens the Streamlit app in your browser (default `http://localhost:8501`).
 
-## API Usage
+## API Endpoints
+
+### `GET /`
+
+Returns a simple status message.
+
+### `GET /health`
+
+Health check used by deployment services (e.g. AWS).
+
+```json
+{
+    "status": "ok",
+    "version": "1.0.1",
+    "model_status": true,
+    "model_version": "1.0.1"
+}
+```
 
 ### `POST /predict`
 
